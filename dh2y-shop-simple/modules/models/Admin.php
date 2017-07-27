@@ -30,18 +30,30 @@ class Admin extends ActiveRecord
         return '{{%admin}}';
     }
 
+    public function attributeLabels()
+    {
+       return [
+           'username' => '管理员账号',
+           'adminpass' => '管理员密码',
+           'email' => '邮箱',
+           'repass' => '确认密码'
+       ];
+    }
+
     public function rules()
     {
         return [
-            ['username','required','message'=>'管理员账号不能为空','on'=>['login','seekPass','changePass']],
-            ['adminpass','required','message'=>'管理员密码不能为空','on'=>['login','changePass']],
+            ['username','required','message'=>'管理员账号不能为空','on'=>['login','seekPass','changePass','adminadd']],
+            ['email','unique','message'=>'管理员账号已经被添加','on'=>['adminadd']],
+            ['adminpass','required','message'=>'管理员密码不能为空','on'=>['login','changePass','adminadd']],
             ['rememberMe','boolean','on'=>['login']],
             ['adminpass','validatePass','on'=>['login']],
-            ['email','required','message'=>'电子邮箱不能为空','on'=>['seekPass']],
-            ['email','email','message'=>'电子邮箱格式错误','on'=>['seekPass']],
+            ['email','required','message'=>'电子邮箱不能为空','on'=>['seekPass','adminadd']],
+            ['email','email','message'=>'电子邮箱格式错误','on'=>['seekPass','adminadd']],
+            ['email','unique','message'=>'电子邮箱已经被添加','on'=>['adminadd']],
             ['email','validateEmail','on'=>['seekPass']],
-            ['repass','required','message'=>'确认密码不能为空','on'=>['changePass']],
-            ['repass','compare','compareAttribute'=>'adminpass','message'=>'两次密码不一致','on'=>['changePass']],
+            ['repass','required','message'=>'确认密码不能为空','on'=>['changePass','adminadd']],
+            ['repass','compare','compareAttribute'=>'adminpass','message'=>'两次密码不一致','on'=>['changePass','adminadd']],
 
         ];
     }
@@ -133,6 +145,21 @@ class Admin extends ActiveRecord
             $filed = ['adminpass'=>md5($this->adminpass)];
             $where = ['username'=>$this->username];
             return (bool)$this->updateAll($filed,$where) ;
+        }
+        return false;
+    }
+
+
+    public function reg($data){
+        $this->scenario = 'adminadd';
+
+        if($this->load($data)&&$this->validate()){  //save包含了validate验证的方法
+            $this->adminpass = md5($this->adminpass);
+            $this->repass = md5($this->repass);
+            if($this->save()){
+                return true;
+            }
+            return false;
         }
         return false;
     }

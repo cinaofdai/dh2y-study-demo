@@ -1,5 +1,6 @@
 <?php
 use yii\widgets\LinkPager;
+use yii\helpers\Url;
 ?>
 <!-- main container -->
 <div class="content">
@@ -50,9 +51,9 @@ use yii\widgets\LinkPager;
                         </div>
                     </div>
 
-                    <a href="new-user.html" class="btn-flat success pull-right">
+                    <a href="<?=Url::to(['manage/reg'])?>" class="btn-flat success pull-right">
                         <span>&#43;</span>
-                        NEW USER
+                        添加管理员
                     </a>
                 </div>
             </div>

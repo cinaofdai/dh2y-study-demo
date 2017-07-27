@@ -69,4 +69,23 @@ class ManageController extends Controller
             'pager' => $pager
         ]);
     }
+
+
+    public function actionReg(){
+        $model = new Admin();
+        if(Yii::$app->request->isPost){
+            $post  = Yii::$app->request->post();
+            if($model->reg($post)){
+                Yii::$app->session->setFlash('info','添加成功');
+            }else{
+                Yii::$app->session->setFlash('info','添加失败');
+            }
+        }
+
+        $model->adminpass = '';
+        $model->repass = '';
+        return $this->render('reg',[
+            'model'=>$model
+        ]);
+    }
 }
