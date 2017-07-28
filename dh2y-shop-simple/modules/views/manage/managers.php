@@ -97,13 +97,15 @@ use yii\helpers\Url;
                         <td><?=long2ip($item->loginip)?></td>
                         <td><?=date('Y-m-d H:i:s',$item->createtime)?></td>
                         <td class="align-right">
-                            <a href="#">删除</a>
-                            <a href="#">修改</a>
+                            <a href="<?=Url::to(['manage/del','id'=>$item->id])?>">删除</a>
                         </td>
                     </tr>
                     <?php endforeach;?>
                     </tbody>
                 </table>
+                <?php if(Yii::$app->session->hasFlash('info')){
+                    echo Yii::$app->session->getFlash('info');
+                }?>
             </div>
             <div class="pagination pull-right">
                 <?=LinkPager::widget([

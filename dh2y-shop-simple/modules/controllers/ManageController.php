@@ -70,7 +70,10 @@ class ManageController extends Controller
         ]);
     }
 
-
+    /**
+     * 添加管理员
+     * @return string
+     */
     public function actionReg(){
         $model = new Admin();
         if(Yii::$app->request->isPost){
@@ -87,5 +90,17 @@ class ManageController extends Controller
         return $this->render('reg',[
             'model'=>$model
         ]);
+    }
+
+    public function actionDel(){
+        $id = Yii::$app->request->get('id');
+        if(empty($id)){
+            $this->redirect(['manage/managers']);
+        }
+        $model = new Admin();
+        if($model->deleteAll(['id'=>$id])){
+            Yii::$app->session->setFlash('info','删除成功');
+            $this->redirect(['manage/managers']);
+        }
     }
 }
