@@ -2,3 +2,6 @@
 /dh2y-shop-simple/runtime
 /dh2y-shop-simple/vendor
 /dh2y-shop-simple/composer.phar
+/dh2y-shop-rbac/runtime
+/dh2y-shop-rbac/vendor
+/dh2y-shop-rbac/composer.phar
