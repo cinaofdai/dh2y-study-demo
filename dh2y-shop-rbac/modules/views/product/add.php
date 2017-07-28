@@ -11,7 +11,7 @@
         display:inline;
     }
 </style>
-    <link rel="stylesheet" href="assets/admin/css/compiled/new-user.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/admin/css/compiled/new-user.css" type="text/css" media="screen" />
     <!-- main container -->
     <div class="content">
         <div class="container-fluid">

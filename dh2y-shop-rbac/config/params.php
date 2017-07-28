@@ -10,7 +10,7 @@ return [
         'order' => 10,
     ],
     'defaultValue' => [
-        'avatar' => 'assets/admin/img/contact-img.png',
+        'avatar' => '/admin/img/contact-img.png',
     ],
     'express' => [
         1 => '中通快递',

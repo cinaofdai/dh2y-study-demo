@@ -1,38 +1,22 @@
+<?php
+use yii;
+use yii\helpers\Html;
+use app\assets\AdminAsset;
+
+AdminAsset::register($this);
+?>
+<?php $this->beginPage()?>
 <!DOCTYPE html>
-<html>
+<html lang="<?=Yii::$app->language?>">
 <head>
-	<title>慕课商城 - 后台管理</title>
-    
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-    <!-- bootstrap -->
-    <link href="/assets/admin/css/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="/assets/admin/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="/assets/admin/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
-
-    <!-- libraries -->
-    <link href="/assets/admin/css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/admin/css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
-
-    <!-- global styles -->
-    <link rel="stylesheet" type="text/css" href="/assets/admin/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/admin/css/elements.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/admin/css/icons.css" />
-
-    <!-- this page specific styles -->
-    <link rel="stylesheet" href="/assets/admin/css/compiled/index.css" type="text/css" media="screen" />    
-    <link href="/assets/admin/css/lib/bootstrap-wysihtml5.css" type="text/css" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/admin/css/compiled/form-showcase.css" type="text/css" media="screen" />
-    <!-- open sans font -->
-
-    <!-- lato font -->
-
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+	<title><?=Html::encode($this->title)?>- 后台管理</title>
+    <?php
+    $this->registerMetaTag(['name'=>'viewport','content'=>'width=device-width, initial-scale=1.0']);
+    $this->registerMetaTag(['http-equiv'=>'Content-Type','content'=>'text/html; charset=utf-8']);
+    ?>
+    <?php $this->head()?>
 <body>
-
+<?php $this->beginBody()?>
     <!-- navbar -->
     <div class="navbar navbar-inverse">
         <div class="navbar-inner">
@@ -99,7 +83,7 @@
                             <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>
                             <div class="messages">
                                 <a href="#" class="item">
-                                    <img src="/assets/admin/img/contact-img.png" class="display" />
+                                    <img src="/admin/img/contact-img.png" class="display" />
                                     <div class="name">Alejandra Galván</div>
                                     <div class="msg">
                                         There are many variations of available, but the majority have suffered alterations.
@@ -107,7 +91,7 @@
                                     <span class="time"><i class="icon-time"></i> 13 min.</span>
                                 </a>
                                 <a href="#" class="item">
-                                    <img src="/assets/admin/img/contact-img2.png" class="display" />
+                                    <img src="/admin/img/contact-img2.png" class="display" />
                                     <div class="name">Alejandra Galván</div>
                                     <div class="msg">
                                         There are many variations of available, have suffered alterations.
@@ -115,7 +99,7 @@
                                     <span class="time"><i class="icon-time"></i> 26 min.</span>
                                 </a>
                                 <a href="#" class="item last">
-                                    <img src="/assets/admin/img/contact-img.png" class="display" />
+                                    <img src="/admin/img/contact-img.png" class="display" />
                                     <div class="name">Alejandra Galván</div>
                                     <div class="msg">
                                         There are many variations of available, but the majority have suffered alterations.
@@ -231,23 +215,9 @@
 
     <?php echo $content ; ?>
 
-
-	<!-- scripts -->
-    <script src="/assets/admin/js/jquery-latest.js"></script>
-    <script src="/assets/admin/js/bootstrap.min.js"></script>
-    <script src="/assets/admin/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <!-- knob -->
-    <script src="/assets/admin/js/jquery.knob.js"></script>
-    <!-- flot charts -->
-    <script src="/assets/admin/js/jquery.flot.js"></script>
-    <script src="/assets/admin/js/jquery.flot.stack.js"></script>
-    <script src="/assets/admin/js/jquery.flot.resize.js"></script>
-    <script src="/assets/admin/js/theme.js"></script>
-    <script src="/assets/admin/js/wysihtml5-0.3.0.js"></script>
-    <script src="/assets/admin/js/bootstrap-wysihtml5-0.0.2.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
+    <?php
+        $js = <<<JS
+ $(function () {
 
             // jQuery Knobs
             $(".knob").knob();
@@ -273,7 +243,7 @@
                 values: [ 40, 170 ],
             });
 
-            
+
 
             // jQuery Flot Chart
             var visits = [[1, 50], [2, 40], [3, 45], [4, 23],[5, 55],[6, 65],[7, 61],[8, 70],[9, 65],[10, 75],[11, 57],[12, 59]];
@@ -285,28 +255,28 @@
                     series: {
                         lines: { show: true,
                                 lineWidth: 1,
-                                fill: true, 
+                                fill: true,
                                 fillColor: { colors: [ { opacity: 0.1 }, { opacity: 0.13 } ] }
                              },
-                        points: { show: true, 
+                        points: { show: true,
                                  lineWidth: 2,
                                  radius: 3
                              },
                         shadowSize: 0,
                         stack: true
                     },
-                    grid: { hoverable: true, 
-                           clickable: true, 
+                    grid: { hoverable: true,
+                           clickable: true,
                            tickColor: "#f9f9f9",
                            borderWidth: 0
                         },
                     legend: {
                             // show: false
                             labelBoxBorderColor: "#fff"
-                        },  
+                        },
                     colors: ["#a7b5c5", "#30a0eb"],
                     xaxis: {
-                        ticks: [[1, "一月"], [2, "二月"], [3, "三月"], [4,"四月"], [5,"五月"], [6,"六月"], 
+                        ticks: [[1, "一月"], [2, "二月"], [3, "三月"], [4,"四月"], [5,"五月"], [6,"六月"],
                                [7,"七月"], [8,"八月"], [9,"九月"], [10,"十月"], [11,"十一月"], [12,"十二月"]],
                         font: {
                             size: 12,
@@ -316,7 +286,7 @@
                         }
                     },
                     yaxis: {
-                        ticks:3, 
+                        ticks:3,
                         tickDecimals: 0,
                         font: {size:12, color: "#9da3a9"}
                     }
@@ -366,9 +336,16 @@
             pic.attr("style", "margin-left:120px");
             $("#product-pics").parent().append(pic);
         });
+JS;
+        $this->registerJs($js);
+
+    ?>
+    <script type="text/javascript">
+
 
     </script>
-
+<?php $this->endBody()?>
 </body>
 </html>
+<?php $this->endPage()?>
 

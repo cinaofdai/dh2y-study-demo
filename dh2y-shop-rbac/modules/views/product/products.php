@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="assets/admin/css/compiled/user-list.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/admin/css/compiled/user-list.css" type="text/css" media="screen" />
     <!-- main container -->
     <div class="content">
         

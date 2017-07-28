@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="assets/admin/css/compiled/user-list.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/admin/css/compiled/user-list.css" type="text/css" media="screen" />
     <!-- main container -->
     <div class="content">
         
@@ -50,7 +50,7 @@
                                 <?php if (empty($user->profile->avatar)): ?>
                                     <img src="<?php echo Yii::$app->params['defaultValue']['avatar']; ?>" class="img-circle avatar hidden-phone" />
                                 <?php else: ?>
-                                    <img src="assets/uploads/avatar/<?php echo $user->profile->avatar; ?>" class="img-circle avatar hidden-phone" />
+                                    <img src="/uploads/avatar/<?php echo $user->profile->avatar; ?>" class="img-circle avatar hidden-phone" />
                                 <?php endif; ?>
                                 <a href="#" class="name"><?php echo $user->username; ?></a>
                                 <span class="subtext"><?php echo $user->useremail; ?></span>
