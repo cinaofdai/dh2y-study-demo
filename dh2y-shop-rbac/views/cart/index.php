@@ -1,5 +1,6 @@
 <?php
     use yii\bootstrap\ActiveForm;
+    $this->title = '购物车';
 ?>
 <!-- ============================================================= HEADER : END ============================================================= -->		<section id="cart-page">
     <div class="container">
@@ -90,3 +91,44 @@
     </div>
 </section>		<!-- ============================================================= FOOTER ============================================================= -->
 <?php ActiveForm::end(); ?>
+<?php
+    $url =yii\helpers\Url::to(['cart/mod']);
+    $js = <<<JS
+    $(".minus").click(function () {
+        var cartid = $("input[name=productnum]").attr('id');
+        var num = parseInt($("input[name=productnum]").val()) - 1;
+        if (parseInt($("input[name=productnum]").val()) <= 1) {
+            var num = 1;
+        }
+        var total = parseFloat($(".value.pull-right span").html());
+        var price = parseFloat($(".price span").html());
+        changeNum(cartid, num);
+        var p = total - price;
+        if (p < 0) {
+            var p = "0";
+        }
+        $(".value.pull-right span").html(p + "");
+        $(".value.pull-right.ordertotal span").html(p + "");
+    });
+    $(".plus").click(function () {
+        var cartid = $("input[name=productnum]").attr('id');
+        var num = parseInt($("input[name=productnum]").val()) + 1;
+        var total = parseFloat($(".value.pull-right span").html());
+        var price = parseFloat($(".price span").html());
+        changeNum(cartid, num);
+        var p = total + price;
+        $(".value.pull-right span").html(p + "");
+        $(".value.pull-right.ordertotal span").html(p + "");
+    });
+    function changeNum(cartid, num) {
+        $.get('$url', {
+            'productnum': num,
+            'cartid': cartid
+        }, function (data) {
+            location.reload();
+        });
+    }
+JS;
+$this->registerJs($js);
+
+?>

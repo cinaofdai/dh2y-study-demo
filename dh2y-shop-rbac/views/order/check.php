@@ -1,5 +1,6 @@
 <?php
     use yii\bootstrap\ActiveForm;
+    $this->title = '收银台';
 ?>
 <!-- ============================================================= HEADER : END ============================================================= -->		<!-- ========================================= CONTENT ========================================= -->
 
@@ -164,3 +165,21 @@
 <!-- ========================================= CONTENT : END ========================================= -->		<!-- ============================================================= FOOTER ============================================================= -->
 <input type="hidden" value="<?php echo (int)\Yii::$app->request->get("orderid"); ?>" name="orderid">
 <?php ActiveForm::end(); ?>
+<?php
+$js = <<<JS
+    $("#createlink").click(function () {
+        $(".billing-address").slideDown();
+    });
+
+    var total = parseFloat($("#total span").html());
+    $(".le-radio.express").click(function () {
+        var ototal = parseFloat($(this).attr('data')) + total;
+        $("#ototal span").html(ototal);
+    });
+    $("input.address").click(function () {
+        var addressid = $(this).val();
+        $("input[name=addressid]").val(addressid);
+    });
+JS;
+$this->registerJs($js);
+?>

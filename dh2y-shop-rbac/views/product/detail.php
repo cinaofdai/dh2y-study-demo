@@ -1,5 +1,6 @@
 <?php
     use yii\bootstrap\ActiveForm;
+    $this->title = '产品详情';
 ?>
 <!-- ============================================================= HEADER : END ============================================================= -->		<div id="single-product">
     <div class="container">

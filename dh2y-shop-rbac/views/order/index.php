@@ -1,3 +1,6 @@
+<?php
+  $this->title = '用户订单';
+?>
 <!-- ============================================================= HEADER : END ============================================================= -->		<div id="single-product">
     <div class="container" style="padding-top:10px">
 <?php foreach($orders as $order): ?>
@@ -203,4 +206,36 @@
 </div>
 <?php endforeach; ?>
 </div>
+<?php
+$url =yii\helpers\Url::to(['order/getexpress']);
+ $js = <<<JS
+   $("#createlink").click(function () {
+        $(".billing-address").slideDown();
+    });
+    $("li.disabled").hide();
+    $(".expressshow").hide();
+    $(".express").click(function (e) {
+        e.preventDefault();
+    });
+    $(".express").hover(function () {
+        var a = $(this);
+        if ($(this).attr('data') != 'ok') {
+            $.get('$url', {'expressno': $(this).attr('data')}, function (res) {
+                var str = "";
+                if (res.message = 'ok') {
+                    for (var i = 0; i < res.data.length; i++) {
+                        str += "<p>" + res.data[i].context + " " + res.data[i].time + " </p>";
+                    }
+                }
+                a.find(".expressshow").html(str);
+                a.attr('data', 'ok');
+            }, 'json');
+        }
+        $(this).find(".expressshow").show();
+    }, function () {
+        $(this).find(".expressshow").hide();
+    });
+JS;
+$this->registerJs($js);
+?>
 
