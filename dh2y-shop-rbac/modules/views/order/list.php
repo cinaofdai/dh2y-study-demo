@@ -1,7 +1,13 @@
-    <link rel="stylesheet" href="/admin/css/compiled/user-list.css" type="text/css" media="screen" />
-    <!-- main container -->
-    <div class="content">
-        
+
+<?php
+$this->title='订单列表';
+$this->params['breadcrumbs'][] = ['label'=>$this->title];
+$this->params['breadcrumbs'][] = ['label'=>'订单列表'];
+$this->registerCssFile('@web/admin/css/compiled/user-list.css',[
+    'depends' => 'app\assets\AdminAsset'
+]);
+?>
+      <!-- main container -->
         <div class="container-fluid">
             <div id="pad-wrapper" class="users-list">
                 <div class="row-fluid header">
@@ -108,5 +114,4 @@
                 <!-- end users table -->
             </div>
         </div>
-    </div>
     <!-- end main container -->

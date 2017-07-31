@@ -1,7 +1,13 @@
-    <link rel="stylesheet" href="/admin/css/compiled/user-list.css" type="text/css" media="screen" />
+ <?php
+    $this->title='分类管理';
+    $this->params['breadcrumbs'][] = ['label'=>$this->title];
+    $this->params['breadcrumbs'][] = ['label'=>'添加分类','url'=>\yii\helpers\Url::to(['category/add'])];
+    $this->registerCssFile('@web/admin/css/compiled/user-list.css',[
+        'depends' => 'app\assets\AdminAsset'
+    ]);
+ ?>
+
     <!-- main container -->
-    <div class="content">
-        
         <div class="container-fluid">
             <div id="pad-wrapper" class="users-list">
                 <div class="row-fluid header">
@@ -64,5 +70,4 @@
                 <!-- end users table -->
             </div>
         </div>
-    </div>
     <!-- end main container -->

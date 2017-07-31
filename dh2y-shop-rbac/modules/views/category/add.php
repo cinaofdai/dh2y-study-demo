@@ -1,10 +1,12 @@
 <?php
     use yii\bootstrap\ActiveForm;
     use yii\helpers\Html;
+    $this->title='添加分类';
+    $this->params['breadcrumbs'][] = ['label'=>'分类管理','url'=>\yii\helpers\Url::to(['category/list'])]
 ?>
     <link rel="stylesheet" href="/admin/css/compiled/new-user.css" type="text/css" media="screen" />
     <!-- main container -->
-    <div class="content">
+
         <div class="container-fluid">
             <div id="pad-wrapper" class="new-user">
                 <div class="row-fluid header">
@@ -50,5 +52,5 @@
                 </div>
             </div>
         </div>
-    </div>
+
     <!-- end main container -->

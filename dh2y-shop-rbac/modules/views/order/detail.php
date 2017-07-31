@@ -1,3 +1,9 @@
+
+<?php
+$this->title='订单详情';
+$this->params['breadcrumbs'][] = ['label'=>$this->title];
+$this->params['breadcrumbs'][] = ['label'=>'订单列表','url'=>\yii\helpers\Url::to(['order/list'])];
+?>
     <!-- main container -->
     <div class="content">
         
