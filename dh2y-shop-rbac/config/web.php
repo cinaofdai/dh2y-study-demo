@@ -10,6 +10,26 @@ $config = [
     'language' => 'zh-CN',
     'charset' => 'utf-8',
     'components' => [
+        'assetManager'=>[//前端资源压缩管理
+            'class'=>'yii\web\AssetManager',
+            'bundles'=>[
+                'yii\web\JqueryAsset'=>[
+                    'js'=>[
+                        YII_ENV_DEV?'jquery.js':'jquery.min.js'
+                    ]
+                ],
+                'yii\bootstrap\BootstrapAsset'=>[
+                    'css'=>[
+                        YII_ENV_DEV?'css/bootstrap.css':'css/bootstrap.min.css'
+                    ]
+                ],
+                'yii\bootstrap\BootstrapPluginAsset'=>[
+                    'js'=>[
+                        YII_ENV_DEV?'js/bootstrap.js':'js/bootstrap.min.js'
+                    ]
+                ]
+            ]
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'q6ga0ArPuP1iWsey2H6aoeWsP7G98FnL',
