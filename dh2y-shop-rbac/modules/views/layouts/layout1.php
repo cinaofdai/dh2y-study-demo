@@ -223,7 +223,7 @@ AdminAsset::register($this);
     </div>
 
     <?php
-        $js = <<<JS
+    /*    $js = <<<JS
  $(function () {
 
             // jQuery Knobs
@@ -344,7 +344,7 @@ AdminAsset::register($this);
             $("#product-pics").parent().append(pic);
         });
 JS;
-        $this->registerJs($js);
+        $this->registerJs($js);*/
 
     ?>
     <script type="text/javascript">

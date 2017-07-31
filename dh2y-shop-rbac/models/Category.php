@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\data\Pagination;
 use yii\db\ActiveRecord;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -24,7 +25,7 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            ['parentid', 'required', 'message' => '上级分类不能为空'],
+            ['parentid', 'required', 'message' => '上级分类不能为空','except' => 'rename'],
             ['title', 'required', 'message' => '标题名称不能为空'],
             ['createtime', 'safe']
         ];
@@ -109,6 +110,49 @@ class Category extends ActiveRecord
             $data[$k] = $cate;
         }
         return $data;
+    }
+
+    /**
+     * 递归查询所有的子类数据
+     */
+    public function getChild($pid){
+        $data = self::find()->where(['parentid'=>$pid])->all();
+        if(empty($data)){
+            return [];
+        }
+        $children = [];
+        foreach($data as $child){
+            $children[] = [
+                'id' => $child->cateid,
+                'text' => $child->title,
+                'children'=> $this->getChild($child->cateid)
+            ];
+        }
+        return $children;
+    }
+
+    /**
+     * 查询所有的顶级分类
+     */
+    public function getPrimaryTree(){
+        $data = self::find()->where(['parentid'=>0]);
+        if(empty($data)){
+            return [];
+        }
+        $pages = new Pagination(['totalCount'=>$data->count(), 'pageSize'=> 10]);
+        $data = $data->orderBy('createtime desc')->offset($pages->offset,$pages->limit)->all();
+        if(empty($data)){
+            return [];
+        }
+        $primary = [];
+        foreach($data as $cate){
+            $primary[] = [
+                'id' => $cate->cateid,
+                'text' => $cate->title,
+                'children'=> $this->getChild($cate->cateid)
+            ];
+        }
+        return ['data' => $primary,'pages'=>$pages];
     }
 
 }
