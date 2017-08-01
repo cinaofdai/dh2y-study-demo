@@ -13,6 +13,35 @@ use dzer\express\Express;
 
 class OrderController extends CommonController
 {
+    /**
+     * 行为访问控制（在所有的方法执行之前做的验证）
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            //访问行为
+          'access' =>[
+              'class'=> \yii\filters\AccessControl::className(),//访问控制
+              'only'=> ['*'],//仅有哪些方法做验证， *表示所有
+              //'except' => [], 除了哪些方法
+              'rules' =>[
+                  [
+                      'allow' => false,
+                      'actions'=>['index','check'],//哪些方法不允许访问
+                      'roles'=>['?']   //未登录guest   ?表示未登录
+                  ],
+                  [
+                      'allow' => true,
+                      'actions'=>['index','check'],//哪些方法允许访问
+                      'roles'=>['@']   //为登录   @表示登录
+                  ]
+              ]
+          ]
+
+        ];
+    }
+
     public function actionIndex()
     {
         $this->layout = "layout2";
