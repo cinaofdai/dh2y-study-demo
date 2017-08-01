@@ -10,6 +10,39 @@ use Yii;
 
 class CommonController extends Controller
 {
+
+    protected $actions = ['*'];
+    protected $except = [];
+    protected $mustLogin = [];
+    protected $verbs = [];
+
+    public function behaviors(){
+        return [
+          'access' => [
+              'class'=>\yii\filters\AccessControl::className(),
+              'only' => $this->actions,
+              'except' => $this->except,
+              'rules'=>[
+                  [
+                      'allow' => false,
+                      'actions'=>empty($this->mustLogin)?[]:$this->mustLogin,
+                      'roles'=>['?']
+                  ],
+                  [
+                      'allow' => true,
+                      'actions'=>empty($this->mustLogin)?[]:$this->mustLogin,
+                      'roles'=>['@']
+                  ]
+              ]
+          ],
+          'verbs'=>[
+              'class'=>\yii\filters\VerbFilter::className(),//访问方式过滤
+              'actions'=>$this->verbs
+          ]
+
+        ];
+    }
+
     public function init()
     {
         $menu = Category::getMenu();

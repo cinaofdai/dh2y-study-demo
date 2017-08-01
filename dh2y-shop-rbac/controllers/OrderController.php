@@ -13,14 +13,18 @@ use dzer\express\Express;
 
 class OrderController extends CommonController
 {
-    /**
-     * 行为访问控制（在所有的方法执行之前做的验证）
-     * @return array
-     */
+
+    protected $mustLogin=['index','check'];
+    protected $verbs=[
+        'confirm'=>['post'/*,'get','put'*/]
+    ];
+
+  /*
+        //行为访问控制（在所有的方法执行之前做的验证）
     public function behaviors()
     {
         return [
-            //访问行为
+            //访问行为过滤
           'access' =>[
               'class'=> \yii\filters\AccessControl::className(),//访问控制
               'only'=> ['*'],//仅有哪些方法做验证， *表示所有
@@ -40,7 +44,7 @@ class OrderController extends CommonController
           ]
 
         ];
-    }
+    }*/
 
     public function actionIndex()
     {
