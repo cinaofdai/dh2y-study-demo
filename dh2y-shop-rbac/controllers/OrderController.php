@@ -16,11 +16,11 @@ class OrderController extends CommonController
     public function actionIndex()
     {
         $this->layout = "layout2";
-        if (Yii::$app->session['isLogin'] != 1) {
+        if (Yii::$app->user->isGuest) {
             return $this->redirect(['member/auth']);
         }
-        $loginname = Yii::$app->session['loginname'];
-        $userid = User::find()->where('username = :name or useremail = :email', [':name' => $loginname, ':email' => $loginname])->one()->userid;
+        //$loginname = Yii::$app->session['loginname'];
+        $userid = Yii::$app->user->id;//User::find()->where('username = :name or useremail = :email', [':name' => $loginname, ':email' => $loginname])->one()->userid;
         $orders = Order::getProducts($userid);
         return $this->render("index", ['orders' => $orders]);
     }

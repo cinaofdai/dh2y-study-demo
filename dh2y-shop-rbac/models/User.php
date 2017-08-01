@@ -3,8 +3,9 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 use Yii;
+use yii\web\IdentityInterface;
 
-class User extends ActiveRecord
+class User extends ActiveRecord implements IdentityInterface
 {
     public $repass;
     public $loginname;
@@ -81,12 +82,14 @@ class User extends ActiveRecord
         $this->scenario = "login";
         if ($this->load($data) && $this->validate()) {
             //做点有意义的事
-            $lifetime = $this->rememberMe ? 24*3600 : 0;
+           return Yii::$app->user->login($this->getUser(),$this->rememberMe ? 24*3600 : 0);
+
+            /*$lifetime = $this->rememberMe ? 24*3600 : 0;
             $session = Yii::$app->session;
             session_set_cookie_params($lifetime);
             $session['loginname'] = $this->loginname;
             $session['isLogin'] = 1;
-            return (bool)$session['isLogin'];
+            return (bool)$session['isLogin'];*/
         }
         return false;
     }
@@ -108,4 +111,48 @@ class User extends ActiveRecord
         return false;
     }
 
+    public function getUser(){
+        $condition = ['or', ['username' => $this->loginname], ['useremail' => $this->loginname]];
+        return self::find()->where($condition)->one();
+    }
+
+    /**
+     * 根据主机id获取实例
+     */
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    /**
+     * 根据数据表里面的token获取实例（数据库没有token不实现）
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return null;
+    }
+
+    /**
+     * 获取用户id
+     */
+    public function getId()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * 使用cookie登录获取cookie的key(我们使用session不实现)
+     */
+    public function getAuthKey()
+    {
+       return '';
+    }
+
+    /**
+     * 验证使用cookie登录获取cookie的key
+     */
+    public function validateAuthKey($authKey)
+    {
+        return true;
+    }
 }

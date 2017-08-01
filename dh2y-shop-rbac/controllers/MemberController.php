@@ -29,11 +29,13 @@ class MemberController extends CommonController
 
     public function actionLogout()
     {   
-        Yii::$app->session->remove('loginname');
+        /*Yii::$app->session->remove('loginname');
         Yii::$app->session->remove('isLogin');
         if (!isset(Yii::$app->session['isLogin'])) {
             return $this->goBack(Yii::$app->request->referrer);
-        }
+        }*/
+        Yii::$app->user->logout();
+        return $this->goBack(Yii::$app->request->referrer);
     }
 
     public function actionReg()

@@ -42,10 +42,10 @@ WebAsset::register($this);
             ],
             'items'=>[
                 ['label'=>'首页','url'=>['/index/index']],
-                \Yii::$app->session['isLogin'] == 1?(
+                !\Yii::$app->user->isGuest?(
                 ['label'=>'我的购物车','url'=>['/cart/index']]
                 ):'',
-                \Yii::$app->session['isLogin'] == 1?(
+                !\Yii::$app->user->isGuest?(
                 ['label'=>'我的订单','url'=>['/order/index']]
                 ):'',
             ]
@@ -55,14 +55,14 @@ WebAsset::register($this);
                 'class'=>'navbar-nav navbar-right',
             ],
             'items'=>[
-                \Yii::$app->session['isLogin'] != 1?(
+                \Yii::$app->user->isGuest?(
                 ['label'=>'注册','url'=>['/member/auth']]
                 ):'',
-                \Yii::$app->session['isLogin'] != 1?(
+                \Yii::$app->user->isGuest?(
                 ['label'=>'登录','url'=>['/member/auth']]
                 ):'',
-                \Yii::$app->session['isLogin'] == 1?(
-                    '您好 , 欢迎您回来'.\Yii::$app->session['loginname'].','.
+                !\Yii::$app->user->isGuest?(
+                    '您好 , 欢迎您回来'.\Yii::$app->user->identity->username.','.
                     Html::a('退出',['member/logout'])
                 ):'',
             ]
