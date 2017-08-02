@@ -7,6 +7,8 @@ use app\modules\controllers\CommonController;
 
 class DefaultController extends CommonController
 {
+    protected $mustLogin=['index'];
+
     public function actionIndex()
     {
         $this->layout = "layout1";

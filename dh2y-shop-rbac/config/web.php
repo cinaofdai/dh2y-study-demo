@@ -50,6 +50,7 @@ $config = [
             'enableAutoLogin' => true,
             'idParam' => '__admin',
             'identityCookie' => ['name'=>'_admin_identity','httpOnly' => true],
+            'loginUrl' => ['admin/public/login'] //登录页面
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
