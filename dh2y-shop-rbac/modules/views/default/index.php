@@ -1,8 +1,6 @@
 
 	<!-- main container -->
-    <div class="content">
-
-        <div class="container-fluid">
+    <div class="container-fluid">
 
             <!-- upper main stats -->
             <div id="main-stats">
@@ -217,7 +215,6 @@
                 <!-- end table sample -->
             </div>
         </div>
-    </div>
 
 
 

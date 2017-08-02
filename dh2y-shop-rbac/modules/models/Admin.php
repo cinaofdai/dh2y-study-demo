@@ -3,8 +3,9 @@
 namespace app\modules\models;
 use yii\db\ActiveRecord;
 use Yii;
+use yii\web\IdentityInterface;
 
-class Admin extends ActiveRecord
+class Admin extends ActiveRecord implements IdentityInterface
 {
     public $rememberMe = true;
     public $repass;
@@ -60,12 +61,18 @@ class Admin extends ActiveRecord
         }
     }
 
+    public function getAdmin(){
+        $condition = ['adminuser' => $this->adminuser];
+        return self::find()->where($condition)->one();
+    }
+
     public function login($data)
     {
         $this->scenario = "login";
         if ($this->load($data) && $this->validate()) {
             //做点有意义的事
-            $lifetime = $this->rememberMe ? 24*3600 : 0;
+            return Yii::$app->admin->login($this->getAdmin(),$this->rememberMe ? 24*3600 : 0);
+            /*$lifetime = $this->rememberMe ? 24*3600 : 0;
             $session = Yii::$app->session;
             session_set_cookie_params($lifetime);
             $session['admin'] = [
@@ -73,7 +80,7 @@ class Admin extends ActiveRecord
                 'isLogin' => 1,
             ];
             $this->updateAll(['logintime' => time(), 'loginip' => ip2long(Yii::$app->request->userIP)], 'adminuser = :user', [':user' => $this->adminuser]);
-            return (bool)$session['admin']['isLogin'];
+            return (bool)$session['admin']['isLogin'];*/
         }
         return false;
     }
@@ -134,5 +141,43 @@ class Admin extends ActiveRecord
     }
 
 
+    /**
+     * 根据主机id获取实例
+     */
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
 
+    /**
+     * 根据数据表里面的token获取实例（数据库没有token不实现）
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return null;
+    }
+
+    /**
+     *  获取用户id
+     */
+    public function getId()
+    {
+        return $this->adminid;
+    }
+
+    /**
+     * 使用cookie登录获取cookie的key(我们使用session不实现)
+     */
+    public function getAuthKey()
+    {
+        return '';
+    }
+
+    /**
+     * 验证使用cookie登录获取cookie的key
+     */
+    public function validateAuthKey($authKey)
+    {
+        return true;
+    }
 }

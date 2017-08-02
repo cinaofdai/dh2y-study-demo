@@ -37,10 +37,19 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
+        'user' => [ //登录组件
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
-            'loginUrl' => ['member/auth']
+            'idParam' => '__user', //session分开标识
+            'identityCookie' => ['name'=>'_user_identity','httpOnly' => true],//cookie实例分开标识
+            'loginUrl' => ['member/auth'] //登录页面
+        ],
+        'admin' =>[ //配置后台登录组件
+            'class' => 'yii\web\User',
+            'identityClass' => 'app\modules\models\Admin',
+            'enableAutoLogin' => true,
+            'idParam' => '__admin',
+            'identityCookie' => ['name'=>'_admin_identity','httpOnly' => true],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
