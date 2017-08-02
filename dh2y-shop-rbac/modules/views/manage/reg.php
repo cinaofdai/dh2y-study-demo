@@ -4,7 +4,7 @@
 ?>
     <link rel="stylesheet" href="/admin/css/compiled/new-user.css" type="text/css" media="screen" />
     <!-- main container -->
-    <div class="content">
+
         
         <div class="container-fluid">
             <div id="pad-wrapper" class="new-user">
@@ -55,6 +55,6 @@
                 </div>
             </div>
         </div>
-    </div>
+   
     <!-- end main container -->
 

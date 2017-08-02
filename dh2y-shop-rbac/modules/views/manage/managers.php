@@ -1,6 +1,5 @@
     <!-- main container -->
-    <div class="content">
-      
+
         <div class="container-fluid">
             <div id="pad-wrapper" class="users-list">
                 <div class="row-fluid header">
@@ -85,6 +84,5 @@
                 <!-- end users table -->
             </div>
         </div>
-    </div>
     <!-- end main container -->
 

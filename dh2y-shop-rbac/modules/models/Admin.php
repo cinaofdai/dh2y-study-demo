@@ -44,9 +44,12 @@ class Admin extends ActiveRecord implements IdentityInterface
     public function validatePass()
     {
         if (!$this->hasErrors()) {
-            $data = self::find()->where('adminuser = :user and adminpass = :pass', [":user" => $this->adminuser, ":pass" => md5($this->adminpass)])->one();
+            $data = self::find()->where('adminuser = :user', [":user" => $this->adminuser])->one();
             if (is_null($data)) {
-                $this->addError("adminpass", "用户名或者密码错误");
+                $this->addError("adminpass", "用户名错误");
+            }
+            if(!Yii::$app->getSecurity()->validatePassword($this->adminpass,$data->adminpass)){
+                $this->addError("userpass", "或者密码错误");
             }
         }
     }
@@ -122,7 +125,8 @@ class Admin extends ActiveRecord implements IdentityInterface
     {
         $this->scenario = 'adminadd';
         if ($this->load($data) && $this->validate()) {
-            $this->adminpass = md5($this->adminpass);
+            //$this->adminpass = md5($this->adminpass);
+            $this->adminpass =Yii::$app->getSecurity()->generatePasswordHash($this->adminpass);
             if ($this->save(false)) {
                 return true;
             }
